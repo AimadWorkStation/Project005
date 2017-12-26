@@ -4,11 +4,21 @@
 	
 	if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-		$username = $_POST['username'];
-		$email = $_POST['email'];
-		$phone = $_POST['phone'];
-		$msg =  $_POST['msg'];
+		$username = filter_var($_POST['username'],FILTER_SANITIZE_STRING);
+
+		$email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
 		
+		$phone = filter_var($_POST['phone'],FILTER_VALIDATE_INT);
+		
+		$msg =  filter_var($_POST['msg'],FILTER_SANITIZE_STRING);
+		
+
+		// echo $username .'<br>';
+		// echo $email .'<br>';
+		// echo $phone .'<br>';
+		// echo $msg .'<br>';
+
+
 		//errors
 		$errors = array();
 		if(strlen($username) <= 3){
@@ -18,6 +28,26 @@
 		if (strlen($msg) < 10) {
 			array_push($errors,"message can't be less then 10 characters");
 		}
+
+		//if no error send the mail
+		// syntax mail(to,subject,Message,Headers,parameters)
+		$headers = 'From : '. $email . '\r\n';
+		$PersonnalEmail = 'nextG@localhost';
+		if(empty($errors)){
+
+			mail($PersonnalEmail,'contact From : '.$email . ' Name : '.$username,$msg ,$headers);
+
+			$username = '';
+			$email = '';
+			$phone = '';
+			$msg = '';
+			$success = "<div class='alert alert-success' role='alert'>
+					  <strong>Well done!</strong> You successfully send us message</a>.
+					</div>";
+
+		}
+		
+
 
 	}
 
@@ -61,18 +91,20 @@
 						}
 					?>
 				</div>		
-			<?php	}				
-			 ?>	
-			<input class="form-control" type="text" name="username" placeholder="user name : ">
+			<?php	}  ?>	
+			<?php if(isset($success)){
+				echo $success;
+			} ?>
+			<input class="form-control" type="text" name="username" placeholder="user name : " value="<?php if(isset($username)){ echo $username;} ?> " required>
 			<i class="fa fa-user fa-fw"></i>
-			<input class="form-control" type="email" name="email" placeholder="type Email : ">
+			<input class="form-control" type="email" name="email" placeholder="type Email : " value="<?php if(isset($email)){ echo $email;} ?> " required>
 			<i class="fa fa-envelope fa-fw"></i>
-			<input class="form-control" type="phone" name="phone" placeholder="Type your phone number : ">
+			<input class="form-control" type="phone" name="phone" placeholder="Type your phone number : " value="<?php if(isset($phone)){ echo $phone;} ?> ">
 			<i class="fa fa-phone fa-fw"></i>
-			<textarea class="form-control" name="msg">
-				
+			<textarea class="form-control" name="msg" required>
+				<?php if(isset($msg)){ echo trim($msg);} ?>
 			</textarea>
-			<input class="btn btn-success" type="submit" value="Send">
+			<input class="btn btn-success" type="submit" value="send">
 			<i class="fa fa-send fa-fw"></i>
 		</form>
 
@@ -88,6 +120,8 @@
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<!-- positioning labrery -->
 	<script src="js/popper.min.js"></script>
-	<script src='js/plugins.js'></script>
+	<script src='js/bootstrap.min.js'></script>
+	<script src='js/main.js'></script>
+
 </body>
 </html>

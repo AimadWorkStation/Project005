@@ -64,8 +64,6 @@
   	<meta name="author" content="NextG AimadWorkShare">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Project005</title>
-	<!-- script for LiveReload app to reloard web page direct by saving here -->
-		<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>');</script>
 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -121,7 +119,7 @@
 	<!-- positioning labrery -->
 	<script src="js/popper.min.js"></script>
 	<script src='js/bootstrap.min.js'></script>
-	<script src='js/main.js'></script>
+	<script src='js/main1.js'></script>
 
 </body>
 </html>

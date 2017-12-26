@@ -1,1 +1,0 @@
-//$('input:last-of-type').prop('disabled', true);

@@ -1,0 +1,36 @@
+// start form
+
+.myForm{
+	max-width: 500px;
+	margin: 50px auto;
+
+	input,textarea{
+		margin-bottom: 10px;
+	}
+	input{
+		&:last-of-type{
+			width: 100px;
+    		padding-left: 28px;
+		}
+
+	}
+	i{
+	    height: 0px;
+	    float: left;
+	    position: relative;
+	    right: -94%;
+	    top: -38px;
+	    font-size: 20px;
+	    
+	    &:last-of-type {
+	    	right: -2px;
+	    	top: 9px;
+	    	color: white;
+		}
+}
+}
+@media (max-width: 500px) {
+	.myForm i:not(:last-of-type){
+		right: -90%;
+	}
+}
